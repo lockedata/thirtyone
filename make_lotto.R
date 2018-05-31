@@ -30,7 +30,7 @@ create_balloon <- function(name){
   
 }
 
-#purrr::walk(winners, create_balloon)
+purrr::walk(winners, create_balloon)
 
 ########### VIZ
 
@@ -50,7 +50,7 @@ data <- tweenr::tween_states(list(data1, data2), 3, 1, 'linear', 31)
 # then we sprinkle the tags
 data3 <- data1
 data3$x <- rep(seq(-40, 100, length = 5), 7)[1:31]
-data3$y <- rep(seq(50, 120, length = 7), each = 5)[31:1]
+data3$y <- rep(seq(50, 150, length = 7), each = 5)[31:1]
 data4 <- tweenr::tween_states(list(data2, data3), 3, 2, 'linear', 10)
 data$image <- rep(glue::glue("balloons/Balloon_{winners}.png"), nrow(data)/31)
 data4$image <- rep(glue::glue("tags/Label_{winners}.png"), nrow(data4)/31)
@@ -97,7 +97,9 @@ plot_one_step <- function(step, data, chibi = chibi,
 purrr::walk(1:(nrow(data)/31), plot_one_step, data, chibi = chibi,
             box = box)
 
-magick::image_read(fs::dir_ls("frames")) %>%
-  magick::image_join() %>%
-  magick::image_animate(fps = 10) %>%
-  magick::image_write("thirtyone.gif")
+paste0("The winners are ", toString(winners))
+
+# magick::image_read(fs::dir_ls("frames")) %>%
+#   magick::image_join() %>%
+#   magick::image_animate(fps = 10) %>%
+#   magick::image_write("thirtyone.gif")
