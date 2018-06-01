@@ -1,3 +1,5 @@
+library("magrittr")
+
 # needed later
 fs::dir_create("balloons")
 fs::dir_create("tags")
@@ -6,12 +8,12 @@ fs::dir_create("tags")
 set.seed(31)
 
 ########### WINNERS
-# winners <- purrr::map_df(1:31,
-#                          twitterbookdraw::draw_winner)
-# winners <- glue::glue("@{winners}$screen_name")
-winners <- charlatan::ch_name(31)
+winners <- rtweet::get_followers("lockedata") %>%
+  dplyr::sample_n(size = 31)%>%
+  .$user_id %>%
+  rtweet::lookup_users() 
+winners <- glue::glue("@{winners$screen_name}")
 
-library("magrittr")
 
 create_balloon <- function(name){
   magick::image_read("assets/Balloon.png") %>%
