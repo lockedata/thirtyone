@@ -3,6 +3,7 @@ library("magrittr")
 # needed later
 fs::dir_create("balloons")
 fs::dir_create("tags")
+fs::dir_create("frames")
 
 # Obviously this has to be the random seed
 set.seed(31)
@@ -18,14 +19,14 @@ winners <- glue::glue("@{winners$screen_name}")
 create_balloon <- function(name){
   magick::image_read("assets/Balloon.png") %>%
     magick::image_annotate(name,
-                           location = "+860+1900",
+                           location = "+870+1900",
                            size = 70,
                            font = "roboto") %>%
     magick::image_write(glue::glue("balloons/Balloon_{name}.png"))
   
   magick::image_read("assets/Label.png") %>%
     magick::image_annotate(name,
-                           location = "+860+1900",
+                           location = "+870+1900",
                            size = 70,
                            font = "roboto") %>%
     magick::image_write(glue::glue("tags/Label_{name}.png"))
