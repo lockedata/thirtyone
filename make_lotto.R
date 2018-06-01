@@ -102,7 +102,8 @@ purrr::walk(1:(nrow(data)/31), plot_one_step, data, chibi = chibi,
 
 paste0("The winners are ", toString(winners))
 
-gifski::gifski(fs::dir_ls("frames"),
+frames <- fs::dir_ls("frames")
+gifski::gifski(c(frames, rep(frames[length(frames)], 15)),
                gif_file = "thirtyone.gif",
                delay = 0.5, 
                width = 1500,
